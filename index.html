@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+  </head>
+  <body>
+    <form id="registrationForm">
+      <label for="firstName">First Name:</label><br />
+      <input type="text" id="firstName" name="firstName" /><br />
+      <label for="lastName">Last Name:</label><br />
+      <input type="text" id="lastName" name="lastName" /><br />
+      <label for="dob">Date Of Birth:</label><br />
+      <input type="text" id="dob" name="dob" /><br />
+      <label for="gender">Gender:</label><br />
+      <input type="radio" id="male" name="gender" value="male" />
+      <label for="male">Male</label><br />
+      <input type="radio" id="female" name="gender" value="female" />
+      <label for="female">Female</label><br />
+      <label for="city">City:</label><br />
+      <select id="city" name="city">
+        <option value="Kyiv">Kyiv</option>
+        <option value="Lviv">Lviv</option>
+        <option value="Odesa">Оdesa</option>
+        <option value="Kharkiv">Kharkiv</option></select
+      ><br />
+      <label for="address">Address:</label><br />
+      <textarea id="address" name="address"></textarea><br />
+      <label>Languages:</label><br />
+      <input type="checkbox" id="lang1" name="lang1" value="English" />
+      <label for="lang1">English</label><br />
+      <input type="checkbox" id="lang2" name="lang2" value="French" />
+      <label for="lang2">French</label><br />
+      <input type="checkbox" id="lang3" name="lang3" value="Spanish" />
+      <label for="lang3">Spanish</label><br /><br />
+      <button type="button" onclick="displayTable()">Submit</button>
+    </form>
+
+    <div id="userData" style="display: none">
+      <h2>User Data</h2>
+      <table border="1">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>City</th>
+          <th>Address</th>
+          <th>Languages</th>
+        </tr>
+        <tbody id="userDataBody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      function displayTable() {
+        const userData = document.getElementById("userData");
+        const form = document.getElementById("registrationForm");
+        const userDataBody = document.getElementById("userDataBody");
+        const formData = new FormData(form);
+        const newRow = document.createElement("tr");
+
+        formData.forEach(function (value, key) {
+          const cell = document.createElement("td");
+          cell.appendChild(document.createTextNode(value));
+          newRow.appendChild(cell);
+        });
+
+        const langArray = [];
+        const langCheckboxes = document.querySelectorAll(
+          'input[type="checkbox"]:checked'
+        );
+        langCheckboxes.forEach(function (checkbox) {
+          langArray.push(checkbox.value);
+        });
+
+        const langCell = document.createElement("td");
+        langCell.appendChild(document.createTextNode(langArray.join(", ")));
+        // newRow.appendChild(langCell);
+
+        userDataBody.appendChild(newRow);
+        userData.style.display = "block";
+        form.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
